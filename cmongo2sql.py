@@ -5,6 +5,8 @@ Utility to convert a MongoDB JSON dump to a SQL dump.
 
 Copyright 2015 Sam Saint-Pettersen.
 Licensed under the MIT/X11 License.
+
+Use -h switch for usage information.
 """
 import sys
 import re
@@ -21,6 +23,10 @@ def displayInfo():
 	print(__doc__)
 
 def cmongo2sql(file, out, db, verbose, version, info):
+
+	if len(sys.argv) == 1: 
+		displayInfo()
+		sys.exit(0)
 
 	if file == None and out == None:
 		if verbose ==  False and version == True and info == False:
