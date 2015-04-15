@@ -1,0 +1,15 @@
+# 
+# Travis CI configuration.
+#
+
+language: python
+python:
+    - 2.7
+
+# Command to install dependencies
+install: make dependencies
+
+# Commands to build, test and clean with `make`
+before_script: make
+script: make test
+after_script: make clean
