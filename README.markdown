@@ -6,5 +6,9 @@ For migrating data from MongoDB to MySQL or similar RDBMS.
 
 Usage: `cmongo2sql -f data.json -o data.sql`
 
-*Tested with Python 2.7.9 and PyPy 2.5.1 (works), IronPython 2.7.5 (use IPY tweaked version).
-Does not work with Jython 2.5.3 (no json module).*
+Tested with:
+* Python 2.7.9 and PyPy 2.5.1 (works), 
+* IronPython 2.7.5 (use IPY tweaked version): 
+* `ipy cmongo2sql.ipy.py -f data.json -o data.sql`).
+* Jython 2.5.3 (use Jython tweaked version with [Jyson](http://opensource.xhaus.com/projects/jyson)): 
+* `jython -Dpython.path=jyson.jar cmongo2sql.jy.y -f data.json -o data.sql`)
