@@ -15,6 +15,7 @@ dependencies:
 test:
 	sudo mv dist/${TARGET} /usr/bin 
 	$(TARGET) -l -f sample.json -d dummydb
+	cat sample.sql
 
 clean:
 	rm -r -f dist
