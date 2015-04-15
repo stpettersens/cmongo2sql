@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env ipy
 """
 cmongo2sql
 Utility to convert a MongoDB JSON dump to a SQL dump.

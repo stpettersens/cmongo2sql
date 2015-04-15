@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env jython
 """
 cmongo2sql
 Utility to convert a MongoDB JSON dump to a SQL dump.
@@ -89,7 +89,7 @@ def cmongo2sql(file, out, db, verbose, version, info):
 				ii += '\'%s\',\n' % v
 				id = False
 
-			elif(type(value).__name__ == 'str' or type(value).__name__ == 'dict'):
+			elif(type(value).__name__ == 'unicode' or type(value).__name__ == 'dict'):
 				if headers and id == False:
 					length = 50
 					if key == 'description': length = 100
