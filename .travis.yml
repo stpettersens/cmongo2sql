@@ -1,6 +1,7 @@
 # 
 # Travis CI configuration.
 #
+sudo: true
 
 language: python
 python:
