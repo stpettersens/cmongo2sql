@@ -8,4 +8,4 @@ Usage: `cmongo2sql -f data.json -o data.sql`
 
 *Tested with Python 2.7.9 and PyPy 2.5.1 (works). 
 Small bug converting ObjectIDs with IronPython 2.7.5.
-Does not work with Jython 2.5.3 (no json module).
+Does not work with Jython 2.5.3 (no json module).*
