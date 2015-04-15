@@ -1,5 +1,5 @@
 #
-# Makefile to build standalone `packager` Unix-like executable program.
+# Makefile to build standalone `cmongo2sql` Unix-like executable program.
 #
 
 FREEZE = cxfreeze
