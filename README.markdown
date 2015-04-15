@@ -1,6 +1,6 @@
 # cmongo2sql
 
-Convert a MongoDB JSON dump to a SQL dump.
+Utility to convert a MongoDB JSON dump to a SQL dump.
 For migrating data from MongoDB to MySQL or similar RDBMS.
 
-Usage: `cmongo2sql data.json > data.sql`
+Usage: `cmongo2sql -f data.json -o data.sql`
