@@ -6,4 +6,5 @@ For migrating data from MongoDB to MySQL or similar RDBMS.
 
 Usage: `cmongo2sql -f data.json -o data.sql`
 
-**Tested with Python 2.7.9 and PyPy 2.5.1 (works). Small bug converting ObjectIDs with Iron Python 2.7.5**
+*Tested with Python 2.7.9 and PyPy 2.5.1 (works). 
+Small bug converting ObjectIDs with Iron Python 2.7.5*
