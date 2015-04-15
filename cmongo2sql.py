@@ -30,7 +30,7 @@ def cmongo2sql(file, out, db, verbose, version, info):
 		sys.exit(0)
 
 	if file == None and out == None:
-		if verbose ==  False and version == True and info == False:
+		if verbose == False and version == True and info == False:
 			displayVersion()
 
 		elif verbose == False and version == False and info == True:
