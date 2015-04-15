@@ -93,7 +93,7 @@ def cmongo2sql(file, out, db, verbose, version, info):
 				if headers and id == False:
 					length = 50
 					if key == 'description': length = 100
-					ctable += '%s VARCHAR(%d) NOT NULL,\n' % key, length
+					ctable += '%s VARCHAR(%d) NOT NULL,\n' % (key, length)
 				if fvalue.startswith('$oid') == False and fvalue.startswith('$date') == False:
 					ii += '\'%s\',\n' % fvalue
 				id = False
