@@ -25,6 +25,4 @@ test_script:
     - ps: "cat sample.sql"
 
 on_success:
-    - ps: "rm C:/txtrevise/txtrevise.exe"
-    - ps: "rmdir C:/txtrevise"
-    - ps: "rm packager.exe"
+    - ps: "rm cmongo2sql.exe"
