@@ -6,6 +6,8 @@ Utility to convert a MongoDB JSON dump to a SQL dump.
 Copyright 2015 Sam Saint-Pettersen.
 Licensed under the MIT/X11 License.
 
+Tweaked for IronPython compatibility.
+
 Use -h switch for usage information.
 """
 import sys
@@ -15,7 +17,7 @@ import json
 import datetime
 import argparse
 
-signature = 'cmongo2sql 1.0.1 (https://github.com/stpettersens/cmongo2sql)'
+signature = 'cmongo2sql 1.0.1 [IPY] (https://github.com/stpettersens/cmongo2sql)'
 
 def displayVersion():
 	print('\n' + signature)
@@ -30,7 +32,7 @@ def cmongo2sql(file, out, db, verbose, version, info):
 		sys.exit(0)
 
 	if file == None and out == None:
-		if verbose == False and version == True and info == False:
+		if verbose ==  False and version == True and info == False:
 			displayVersion()
 
 		elif verbose == False and version == False and info == True:
@@ -60,34 +62,32 @@ def cmongo2sql(file, out, db, verbose, version, info):
 
 			fvalue = re.sub('\{|\}|\'', '', str(value))
 
-			pattern = re.compile('u\$oid|\$oid')
+			pattern = re.compile('\$oid')
 			if pattern.match(str(fvalue)):
 				if headers: ctable += '{0} VARCHAR(30) NOT NULL,\n'.format(key)
 				v = re.split(':', str(fvalue), 1)
-				v = re.sub('\u', '', v[1], 1)
-				v = re.sub('\s', '', v, 1)
+				v = re.sub('\s', '', v[1], 1)
 				ii += '\'{0}\',\n'.format(v)
 				id = True
 
-			pattern = re.compile('u\$date')
+			pattern = re.compile('\$date')
 			if pattern.match(str(fvalue)):
 				if headers: ctable += '{0} TIMESTAMP NOT NULL,\n'.format(key)
 				v = re.split(':', str(fvalue), 1)
 				v = re.split('\s', v[1], 1)
 				v = ''.join(v)
 				v = re.sub('\T', ' ', v)
-				v = re.sub('\u', '', v)
 				v = re.sub('\.\d{3}Z', '', v)
 				v = re.sub('\.\d{3}\+\d{4}', '', v)
 				ii += '\'{0}\',\n'.format(v)
 				id = False
 
-			elif(type(value).__name__ == 'unicode' or type(value).__name__ == 'dict'):
+			elif(type(value).__name__ == 'str' or type(value).__name__ == 'dict'):
 				if headers and id == False:
 					length = 50
 					if key == 'description': length = 100
 					ctable += '{0} VARCHAR({1}) NOT NULL,\n'.format(key, length)
-				if fvalue.startswith('u$oid') == False and fvalue.startswith('u$date') == False:
+				if fvalue.startswith('$oid') == False and fvalue.startswith('$date') == False:
 					ii += '\'{0}\',\n'.format(fvalue)
 				id = False
 

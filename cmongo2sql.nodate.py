@@ -14,7 +14,7 @@ import re
 import json
 import argparse
 
-signature = 'cmongo2sql 1.0 (https://github.com/stpettersens/cmongo2sql)'
+signature = 'cmongo2sql 1.0.1 (https://github.com/stpettersens/cmongo2sql)'
 
 def displayVersion():
 	print('\n' + signature)
@@ -59,7 +59,7 @@ def cmongo2sql(file, out, db, verbose, version, info):
 
 			fvalue = re.sub('\{|\}|\'', '', str(value))
 
-			pattern = re.compile('u\$oid')
+			pattern = re.compile('u\$oid|\$oid')
 			if pattern.match(str(fvalue)):
 				if headers: ctable += '{0} VARCHAR(30) NOT NULL,\n'.format(key)
 				v = re.split(':', str(fvalue), 1)
@@ -86,7 +86,7 @@ def cmongo2sql(file, out, db, verbose, version, info):
 					length = 50
 					if key == 'description': length = 100
 					ctable += '{0} VARCHAR({1}) NOT NULL,\n'.format(key, length)
-				if fvalue.startswith('u$oid') == False and fvalue.startswith('u$date') == False: 
+				if fvalue.startswith('u$oid') == False and fvalue.startswith('u$date') == False:
 					ii += '\'{0}\',\n'.format(fvalue)
 				id = False
 
