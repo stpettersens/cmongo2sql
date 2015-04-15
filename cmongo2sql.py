@@ -9,6 +9,7 @@ Licensed under the MIT/X11 License.
 Use -h switch for usage information.
 """
 import sys
+import os
 import re
 import json
 import datetime
@@ -39,7 +40,8 @@ def cmongo2sql(file, out, db, verbose, version, info):
 
 	if out == None: out = re.sub('.json', '.sql', file)
 
-	table = re.sub('.json', '', file)
+	head, tail = os.path.split(file)
+	table = re.sub('.json', '', tail)
 
 	f = open(file, 'r')
 	lines = f.readlines()
