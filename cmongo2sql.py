@@ -60,7 +60,7 @@ def cmongo2sql(file, out, db, verbose, version, info):
 
 			fvalue = re.sub('\{|\}|\'', '', str(value))
 
-			pattern = re.compile('u\$oid|\$oid')
+			pattern = re.compile('u\$oid')
 			if pattern.match(str(fvalue)):
 				if headers: ctable += '{0} VARCHAR(30) NOT NULL,\n'.format(key)
 				v = re.split(':', str(fvalue), 1)
