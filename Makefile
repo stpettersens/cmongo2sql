@@ -3,7 +3,7 @@
 #
 
 FREEZE = cxfreeze
-SOURCE = cmongo2sql.py
+SOURCE = cmongo2sql.nodate.py
 TARGET = cmongo2sql
 
 make:
