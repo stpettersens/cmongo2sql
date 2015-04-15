@@ -4,7 +4,7 @@
 
 FREEZE = cxfreeze
 SOURCE = cmongo2sql.nodate.py
-TARGET = cmongo2sql
+TARGET = cmongo2sql.nodate
 
 make:
 	$(FREEZE) $(SOURCE) --target-dir dist
