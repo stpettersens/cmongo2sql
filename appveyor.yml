@@ -16,9 +16,6 @@ install:
 
 build_script:
     - "%PYTHON%/python.exe %PYTHON%/Scripts/cxfreeze cmongo2sql.py --target-dir ."
-    - ps: "mkdir C:/cmongo2sql"
-    - ps: "mv cmongo2sql.exe C:/cmongo2sql"
-    - ps: "$env:Path += ';C:/cmongo2sql'"
     - ps: "rm bz2.pyd"
     - ps: "rm unicodedata.pyd"
     - ps: "rm python27.dll"
