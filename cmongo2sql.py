@@ -40,6 +40,10 @@ def cmongo2sql(file, out, db, verbose, version, info):
 
 	if out == None: out = re.sub('.json', '.sql', file)
 
+	if file.endswith('.json') == False:
+		print('File provided is not a MongoDB dump.')
+		sys.exit(1)
+
 	head, tail = os.path.split(file)
 	table = re.sub('.json', '', tail)
 
