@@ -10,7 +10,6 @@ Tweaked for Jython compatibility.
 Uses Java implemented JSON module
 and getopt instead of argparse.
 
-Use -h switch for usage information.
 """
 import sys
 import os
@@ -20,9 +19,6 @@ import datetime
 import getopt
 
 signature = 'cmongo2sql 1.0.1 [Jython] (https://github.com/stpettersens/cmongo2sql)'
-
-def displayUsage():
-	print('TODO')
 
 def displayVersion():
 	print('\n' + signature)
@@ -136,10 +132,10 @@ def cmongo2sql(file, out, db, verbose, version, info):
 				
 # Handle any command line arguments.
 try:
-	opts, args = getopt.getopt(sys.argv[1:], "f:o:d:lvih")
+	opts, args = getopt.getopt(sys.argv[1:], "f:o:d:lvi")
 except:
-	print(str(err))
-	displayUsage()
+	print('Invalid option or argument.')
+	displayInfo()
 	sys.exit(2)
 
 file = None
@@ -161,9 +157,6 @@ for o, a in opts:
 		version = True
 	elif o == '-i':
 		info = True
-	elif o == '-h':
-		displayUsage()
-		sys.exit(0)
 	else:
 		assert False, 'unhandled option'
 
