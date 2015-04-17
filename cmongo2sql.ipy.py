@@ -46,6 +46,10 @@ def cmongo2sql(file, out, db, verbose, version, info):
 		print('File provided is not a MongoDB dump.')
 		sys.exit(1)
 
+	if out.endswith('.sql') == False:
+		print('Output file is not a SQL file.')
+		sys.exit(1)
+
 	head, tail = os.path.split(file)
 	table = re.sub('.json', '', tail)
 
