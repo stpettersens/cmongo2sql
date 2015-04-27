@@ -17,7 +17,7 @@ import json
 import datetime
 import argparse
 
-signature = 'cmongo2sql 1.0.3 [IPY] (https://github.com/stpettersens/cmongo2sql)'
+signature = 'cmongo2sql 1.0.4 [IPY] (https://github.com/stpettersens/cmongo2sql)'
 
 def displayVersion():
 	print('\n' + signature)
@@ -112,7 +112,7 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 		ii = ''
 
 	ctable = ctable[:-2]
-	ctable += ')\nENGINE=InnoDB DEFAULT CHARSET=utf8;'
+        ctable += ');'
 
 	if verbose: 
 		print('\nGenerating SQL dump file: \'{0}\' from\nMongoDB JSON dump file: \'{1}\'\n'
