@@ -17,7 +17,7 @@ import json
 import datetime
 import argparse
 
-signature = 'cmongo2sql 1.0.4 [IPY] (https://github.com/stpettersens/cmongo2sql)'
+signature = 'cmongo2sql 1.0.5 [IPY] (https://github.com/stpettersens/cmongo2sql)'
 
 def displayVersion():
 	print('\n' + signature)
@@ -27,7 +27,7 @@ def displayInfo():
 
 def cmongo2sql(file, out, db, comments, verbose, version, info):
 
-	if len(sys.argv) == 1: 
+	if len(sys.argv) == 1:
 		displayInfo()
 		sys.exit(0)
 
@@ -92,7 +92,7 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 				ii += '\'{0}\',\n'.format(v)
 				id = False
 
-			elif(type(value).__name__ == 'str' or type(value).__name__ == 'dict'):
+			elif type(value).__name__ == 'str' or type(value).__name__ == 'dict':
 				if headers and id == False:
 					length = 50
 					if key == 'description': length = 100
@@ -106,6 +106,11 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 				ii += '{0},\n'.format(fvalue)
 				id = False
 
+			elif type(value).__name__ == 'bool':
+				if headers: ctable += '`{0}` BOOLEAN,\n'.format(key)
+				ii += '{0},\n'.format(fvalue)
+				id = False
+
 		headers = False
 		ii = ii[:-2]
 		inserts.append(insert + ii + ');\n\n')
@@ -114,7 +119,7 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 	ctable = ctable[:-2]
         ctable += ');'
 
-	if verbose: 
+	if verbose:
 		print('\nGenerating SQL dump file: \'{0}\' from\nMongoDB JSON dump file: \'{1}\'\n'
 		.format(out, file))
 
@@ -134,7 +139,7 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 
 	f.close()
 
-				
+
 # Handle any command line arguments.
 parser = argparse.ArgumentParser(description='Utility to convert a MongoDB JSON dump to a SQL dump.')
 parser.add_argument('-f', '--file', action='store', dest='file', metavar="FILE")

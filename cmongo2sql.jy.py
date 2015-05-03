@@ -18,7 +18,7 @@ import com.xhaus.jyson.JysonCodec as json
 import datetime
 import getopt
 
-signature = 'cmongo2sql 1.0.3 [Jython] (https://github.com/stpettersens/cmongo2sql)'
+signature = 'cmongo2sql 1.0.4 [Jython] (https://github.com/stpettersens/cmongo2sql)'
 
 def displayVersion():
 	print('\n' + signature)
@@ -28,7 +28,7 @@ def displayInfo():
 
 def cmongo2sql(file, out, db, comments, verbose, version, info):
 
-	if len(sys.argv) == 1: 
+	if len(sys.argv) == 1:
 		displayInfo()
 		sys.exit(0)
 
@@ -75,7 +75,7 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 
 			pattern = re.compile('\$oid')
 			if pattern.match(str(fvalue)):
-				if headers: ctable += '%s VARCHAR(30),\n' % key
+				if headers: ctable += '%s VARCHAR(24),\n' % key
 				v = re.split(':', str(fvalue), 1)
 				v = re.sub('\s', '', v[1], 1)
 				v = re.sub('\u', '', v)
@@ -95,17 +95,22 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 				ii += '\'%s\',\n' % v
 				id = False
 
-			elif(type(value).__name__ == 'unicode' or type(value).__name__ == 'dict'):
+			elif type(value).__name__ == 'unicode' or type(value).__name__ == 'dict':
 				if headers and id == False:
 					length = 50
 					if key == 'description': length = 100
-					ctable += '%s VARCHAR(%d) NOT NULL,\n' % (key, length)
+					ctable += '%s VARCHAR(%d),\n' % (key, length)
 				if fvalue.startswith('$oid') == False and fvalue.startswith('$date') == False:
 					ii += '\'%s\',\n' % fvalue
 				id = False
 
 			elif type(value).__name__ == 'int' or type(value).__name__ == 'float':
-				if headers: ctable += '%s NUMERIC(15, 2) NOT NULL,\n' % key
+				if headers: ctable += '%s NUMERIC(15, 2),\n' % key
+				ii += '%s,\n' % fvalue
+				id = False
+
+			elif type(value).__name__ == 'bool':
+				if headers: ctable += '%s BOOLEAN,\n' % key
 				ii += '%s,\n' % fvalue
 				id = False
 
@@ -115,9 +120,9 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 		ii = ''
 
 	ctable = ctable[:-2]
-	ctable += ')\nENGINE=InnoDB DEFAULT CHARSET=utf8;'
+	ctable += ');'
 
-	if verbose: 
+	if verbose:
 		print('\nGenerating SQL dump file: \'%s\' from\nMongoDB JSON dump file: \'%s\'\n' % (out, file))
 
 	collection = re.sub('.json', '', file)
@@ -137,7 +142,7 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 
 	f.close()
 
-				
+
 # Handle any command line arguments.
 try:
 	opts, args = getopt.getopt(sys.argv[1:], "f:o:d:nlvi")
