@@ -75,7 +75,7 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 
 			pattern = re.compile('\$oid')
 			if pattern.match(str(fvalue)):
-				if headers: ctable += '%s VARCHAR(24),\n' % key
+				if headers: ctable += '`%s` VARCHAR(24),\n' % key
 				v = re.split(':', str(fvalue), 1)
 				v = re.sub('\s', '', v[1], 1)
 				v = re.sub('\u', '', v)
@@ -84,7 +84,7 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 
 			pattern = re.compile('\$date')
 			if pattern.match(str(fvalue)):
-				if headers: ctable += '%s TIMESTAMP,\n' % key
+				if headers: ctable += '`%s` TIMESTAMP,\n' % key
 				v = re.split(':', str(fvalue), 1)
 				v = re.split('\s', v[1], 1)
 				v = ''.join(v)
@@ -99,19 +99,19 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 				if headers and id == False:
 					length = 50
 					if key == 'description': length = 100
-					ctable += '%s VARCHAR(%d),\n' % (key, length)
+					ctable += '`%s` VARCHAR(%d),\n' % (key, length)
 				if fvalue.startswith('$oid') == False and fvalue.startswith('$date') == False:
 					ii += '\'%s\',\n' % fvalue
 				id = False
 
 			elif type(value).__name__ == 'int' or type(value).__name__ == 'float':
-				if headers: ctable += '%s NUMERIC(15, 2),\n' % key
+				if headers: ctable += '`%s` NUMERIC(15, 2),\n' % key
 				ii += '%s,\n' % fvalue
 				id = False
 
 			elif type(value).__name__ == 'bool':
-				if headers: ctable += '%s BOOLEAN,\n' % key
-				ii += '%s,\n' % fvalue
+				if headers: ctable += '`%s` BOOLEAN,\n' % key
+				ii += '%s,\n' % fvalue.upper()
 				id = False
 
 		headers = False

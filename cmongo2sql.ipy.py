@@ -108,7 +108,7 @@ def cmongo2sql(file, out, db, comments, verbose, version, info):
 
 			elif type(value).__name__ == 'bool':
 				if headers: ctable += '`{0}` BOOLEAN,\n'.format(key)
-				ii += '{0},\n'.format(fvalue)
+				ii += '{0},\n'.format(fvalue.upper())
 				id = False
 
 		headers = False
